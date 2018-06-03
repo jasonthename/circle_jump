@@ -1,20 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Circle.tscn" type="PackedScene" id=3]
-[ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Display.tscn" type="PackedScene" id=2]
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 script = ExtResource( 1 )
 circles_per_level = 8
 
-[node name="Player" parent="." index="0" instance=ExtResource( 2 )]
+[node name="Display" parent="." index="0" instance=ExtResource( 2 )]
 
-position = Vector2( 166.29, 540.806 )
+[node name="Circles" type="Node" parent="." index="1"]
 
-[node name="Camera2D" type="Camera2D" parent="." index="1"]
+[node name="Camera2D" type="Camera2D" parent="." index="2"]
 
 position = Vector2( 144.959, 734.67 )
 offset = Vector2( 0, -200 )
@@ -42,16 +40,15 @@ editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Smoothing" ]
 
-[node name="Circle" parent="." index="2" instance=ExtResource( 3 )]
+[node name="StartPosition" type="Position2D" parent="." index="3"]
 
-position = Vector2( 228.457, 540.419 )
+position = Vector2( 230, 540 )
+_sections_unfolded = [ "Transform" ]
 
-[node name="HUD" parent="." index="3" instance=ExtResource( 4 )]
+[connection signal="show_message" from="." to="Display" method="show_message"]
 
-[connection signal="dead" from="Player" to="." method="_on_Player_dead"]
+[connection signal="update_score" from="." to="Display" method="update_score"]
 
-[connection signal="capture" from="Circle" to="." method="_on_Circle_capture"]
-
-[connection signal="explode" from="Circle" to="." method="_on_Circle_explode"]
+[connection signal="start_game" from="Display" to="." method="new_game"]
 
 

@@ -7,6 +7,7 @@ export var trail_length = 25
 
 var velocity = Vector2(100, 0)
 var target = null
+var can_jump = false
 
 onready var trail = $Trail/Trail
 
@@ -14,7 +15,7 @@ func _ready():
 	trail.points = PoolVector2Array([position])
 
 func _input(event):
-	if target and event is InputEventScreenTouch and event.pressed:
+	if can_jump and target and event is InputEventScreenTouch and event.pressed:
 		launch()
 
 func launch():
@@ -35,6 +36,7 @@ func _physics_process(delta):
 
 func explode():
 	emit_signal('dead')
+	queue_free()
 
 func _on_VisibilityNotifier2D_screen_exited():
 	explode()

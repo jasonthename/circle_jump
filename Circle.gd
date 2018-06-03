@@ -36,15 +36,15 @@ func set_mode(_mode):
 	mode = _mode
 	match mode:
 		Modes.STATIC:
-			color = globals.colors['GREEN']
+			color = colors['GREEN']
 			$Label.hide()
 		Modes.LIMITED:
-			color =  globals.colors['RED']
+			color =  colors['RED']
 			$Label.show()
 			orbits = num_orbits
 			$Label.text = str(orbits)
 		Modes.SHRINKING:
-			color = globals.colors['BLUE']
+			color = colors['BLUE']
 			$Label.hide()
 	update()
 
@@ -54,7 +54,8 @@ func _draw():
 		Modes.STATIC:
 			draw_circle(Vector2(), radius, color)
 		Modes.LIMITED:
-			draw_circle_arc_poly(Vector2(), radius, start+PI/2, $Pivot.rotation+PI/2, color)
+			var r = ((radius-25)/num_orbits) * (1 + num_orbits - orbits)
+			draw_circle_arc_poly(Vector2(), r+25, start+PI/2, $Pivot.rotation+PI/2, color)
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
 	var nb_points = 32
@@ -77,7 +78,6 @@ func check_orbits():
 	if abs($Pivot.rotation - start) > 2*PI:
 		orbits -= 1
 		$Label.text = str(orbits)
-		print(orbits)
 		if orbits <= 0:
 			player.target = null
 			player.explode()
@@ -96,7 +96,6 @@ func _on_Circle_body_entered(body):
 	player = body
 	$Pivot.rotation = (body.position - position).angle()
 	start = $Pivot.rotation
-
 	body.velocity = Vector2()
 	rot = rot_speed * pow(-1.0, randi() % 2)
 
