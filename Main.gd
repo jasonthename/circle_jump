@@ -18,16 +18,17 @@ func _ready():
 func new_game():
 	yield(get_tree().create_timer(0.5), 'timeout')
 	$Camera2D.position = $StartPosition.global_position
+	yield(get_tree().create_timer(0.5), 'timeout')
 	spawn_circle($StartPosition.global_position, 0)
 	player = Player.instance()
 	player.position = $StartPosition.global_position
 	add_child(player)
 	player.connect('dead', self, "_on_Player_dead")
 	player.show()
-	#$HUD.show_message('Go!')
+	emit_signal('show_message', 'Go!')
 	score = -1
+	level = 1
 	emit_signal('update_score', score)
-	yield(get_tree().create_timer(0.5), 'timeout')
 	player.can_jump = true
 
 func spawn_circle(_position=null, _type=null):
@@ -45,7 +46,12 @@ func spawn_circle(_position=null, _type=null):
 		if rand_range(0, 1) > 0.5:
 			c.mode = 0
 		else:
-			c.num_orbits = randi() % 4 + 1
+			if level < 4:
+				c.num_orbits = randi() % 3 + 3
+			elif level < 8:
+				c.num_orbits = randi() % 3 + 2
+			elif level < 12:
+				c.num_orbits = randi() % 3 + 1
 			c.rot_speed = rand_range(PI, 1.5 * PI)
 			c.mode = 1
 	c.connect('explode', self, '_on_Circle_explode')

@@ -19,7 +19,7 @@ func _input(event):
 		launch()
 
 func launch():
-	target.rot = 0
+	#target.rot = 0
 	target.explode()
 	target = null
 	velocity = Vector2(jump, 0).rotated(rotation)

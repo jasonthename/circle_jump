@@ -101,4 +101,7 @@ func _on_Circle_body_entered(body):
 
 func explode():
 	emit_signal('explode')
+	if !$AnimationPlayer.is_playing():
+		$AnimationPlayer.play('explode')
+	yield($AnimationPlayer, 'animation_finished')
 	queue_free()

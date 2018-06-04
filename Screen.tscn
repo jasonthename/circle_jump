@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Screen.gd" type="Script" id=1]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 
 resource_name = "appear"
 length = 0.5
@@ -37,7 +37,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/appear = SubResource( 2 )
+anims/appear = SubResource( 1 )
 blend_times = [  ]
 
 
