@@ -26,6 +26,7 @@ var player = null
 onready var orbit_pos = $Pivot/ContactPoint
 
 func _ready():
+	$Sprite.material = $Sprite.material.duplicate()
 	$Pivot/ContactPoint.position.x = radius + 15
 	var shape = CircleShape2D.new()
 	shape.radius = radius
@@ -39,23 +40,22 @@ func set_mode(_mode):
 			color = colors['GREEN']
 			$Label.hide()
 		Modes.LIMITED:
-			color =  colors['RED']
+			color =  colors['YELLOW']
 			$Label.show()
 			orbits = num_orbits
 			$Label.text = str(orbits)
 		Modes.SHRINKING:
 			color = colors['BLUE']
 			$Label.hide()
+	$Sprite.material.set_shader_param('color', color)
 	update()
 
 func _draw():
-	draw_circle(Vector2(), radius, Color(.5, .5, .5))
+	#draw_circle(Vector2(), radius, Color(.5, .5, .5))
 	match mode:
-		Modes.STATIC:
-			draw_circle(Vector2(), radius, color)
 		Modes.LIMITED:
-			var r = ((radius-25)/num_orbits) * (1 + num_orbits - orbits)
-			draw_circle_arc_poly(Vector2(), r+25, start+PI/2, $Pivot.rotation+PI/2, color)
+			var r = ((radius-50)/num_orbits) * (1 + num_orbits - orbits)
+			draw_circle_arc_poly(Vector2(), r+10, start+PI/2, $Pivot.rotation+PI/2, colors['RED'])
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
 	var nb_points = 32
@@ -67,12 +67,6 @@ func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
 		var angle_point = angle_from + i * (angle_to - angle_from) / nb_points - PI/2
 		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
 	draw_polygon(points_arc, colors)
-
-func shrink():
-	radius -= 2
-	$CollisionShape2D.shape.radius = radius
-	$Pivot/ContactPoint.position.x = radius + 15
-	update()
 
 func check_orbits():
 	if abs($Pivot.rotation - start) > 2*PI:
@@ -86,7 +80,7 @@ func check_orbits():
 			explode()
 		start = $Pivot.rotation
 
-func _process(delta):
+func _physics_process(delta):
 	$Pivot.rotation += rot * delta
 	if mode == Modes.LIMITED:
 		check_orbits()
@@ -96,11 +90,12 @@ func _on_Circle_body_entered(body):
 	if settings.enable_sound:
 		$CaptureSound.play()
 	emit_signal('capture', self)
-	body.target = self
+	body.capture(self)
+	#body.target = self
 	player = body
 	$Pivot.rotation = (body.position - position).angle()
 	start = $Pivot.rotation
-	body.velocity = Vector2()
+	#body.velocity = Vector2()
 	rot = rot_speed * pow(-1.0, randi() % 2)
 
 func explode():

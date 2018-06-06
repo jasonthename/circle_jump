@@ -13,10 +13,16 @@ onready var trail = $Trail/Trail
 
 func _ready():
 	trail.points = PoolVector2Array([position])
+	$AnimationPlayer.play('capture')
 
 func _input(event):
 	if can_jump and target and event is InputEventScreenTouch and event.pressed:
 		launch()
+
+func capture(_target):
+	target = _target
+	velocity = Vector2()
+	$AnimationPlayer.play('capture')
 
 func launch():
 	#target.rot = 0
@@ -29,7 +35,7 @@ func _physics_process(delta):
 		position = target.orbit_pos.global_position
 		rotation = (position - target.position).angle()
 	else:
-		velocity = move_and_slide(velocity)
+		move_and_collide(velocity * delta)
 	if trail.points.size() > trail_length:
 		trail.remove_point(0)
 	trail.add_point(position)

@@ -1,14 +1,32 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Circle.gd" type="Script" id=1]
-[ext_resource path="res://font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/sounds/70.ogg" type="AudioStream" id=3]
-[ext_resource path="res://assets/sounds/89.ogg" type="AudioStream" id=4]
-[ext_resource path="res://assets/sounds/88.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Circle2.gd" type="Script" id=1]
+[ext_resource path="res://assets/circle_1.png" type="Texture" id=2]
+[ext_resource path="res://font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/sounds/70.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/sounds/89.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/sounds/88.ogg" type="AudioStream" id=6]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Shader" id=1]
 
-resource_name = "explode"
+code = "shader_type canvas_item;
+
+uniform vec4 color : hint_color;
+
+void fragment() {
+	COLOR.rgb = color.rgb;
+	COLOR.a = texture(TEXTURE, UV).a;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+
+render_priority = 0
+shader = SubResource( 1 )
+shader_param/color = Color( 0.96875, 0.363281, 0.363281, 1 )
+_sections_unfolded = [ "shader_param" ]
+
+[sub_resource type="Animation" id=3]
+
 length = 0.4
 loop = false
 step = 0.1
@@ -49,9 +67,8 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=4]
 
-resource_name = "init"
 length = 1.0
 loop = false
 step = 0.1
@@ -92,7 +109,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 
-[node name="Circle" type="Area2D"]
+[node name="Circle2" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -107,32 +124,37 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+material = SubResource( 2 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
 disabled = true
 
-[node name="Pivot" type="Node2D" parent="." index="1"]
+[node name="Pivot" type="Node2D" parent="." index="2"]
 
 [node name="ContactPoint" type="Position2D" parent="Pivot" index="0"]
 
-[node name="Label" type="Label" parent="." index="2"]
+[node name="Label" type="Label" parent="." index="3"]
 
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -25.0
-margin_top = -38.0
-margin_right = 20.0
-margin_bottom = 40.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -58.0
+margin_top = -72.0
+margin_right = -13.0
+margin_bottom = 6.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color_shadow = Color( 0.382812, 0.382812, 0.382812, 1 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
@@ -144,36 +166,36 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Anchor", "Hint", "Rect", "custom_colors", "custom_constants", "custom_fonts" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 
 root_node = NodePath("..")
 autoplay = "init"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/explode = SubResource( 1 )
-anims/init = SubResource( 2 )
+anims/explode = SubResource( 3 )
+anims/init = SubResource( 4 )
 blend_times = [  ]
 
-[node name="ExplodeSound" type="AudioStreamPlayer" parent="." index="4"]
+[node name="ExplodeSound" type="AudioStreamPlayer" parent="." index="5"]
 
-stream = ExtResource( 3 )
+stream = ExtResource( 4 )
 volume_db = -10.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="OrbitSound" type="AudioStreamPlayer" parent="." index="5"]
+[node name="OrbitSound" type="AudioStreamPlayer" parent="." index="6"]
 
-stream = ExtResource( 4 )
+stream = ExtResource( 5 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="CaptureSound" type="AudioStreamPlayer" parent="." index="6"]
+[node name="CaptureSound" type="AudioStreamPlayer" parent="." index="7"]
 
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0

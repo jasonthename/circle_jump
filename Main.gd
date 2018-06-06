@@ -4,16 +4,26 @@ signal game_over
 signal update_score
 signal show_message
 
-var Circle = preload("res://Circle.tscn")
+var Circle = preload("res://Circle2.tscn")
 var Player = preload("res://Player.tscn")
+var score_file = "user://highscore.txt"
 
-export var circles_per_level = 8
-var score = -1
+export var circles_per_level = 5
+var score = 0
+var highscore = 0
 var level = 1
 var player
+var enable_sound = true
+var enable_music = true
 
 func _ready():
 	randomize()
+	var f = File.new()
+	if f.file_exists(score_file):
+		f.open(score_file, File.READ)
+		var content = f.get_as_text()
+		highscore = int(content)
+		f.close()
 
 func new_game():
 	yield(get_tree().create_timer(0.5), 'timeout')
@@ -30,6 +40,8 @@ func new_game():
 	level = 1
 	emit_signal('update_score', score)
 	player.can_jump = true
+	if settings.enable_music:
+		$Music.play()
 
 func spawn_circle(_position=null, _type=null):
 	var c = Circle.instance()
@@ -43,7 +55,7 @@ func spawn_circle(_position=null, _type=null):
 	if _type != null:
 		c.mode = _type
 	else:
-		if rand_range(0, 1) > 0.5:
+		if rand_range(0, 1) > 0.5 or level == 1:
 			c.mode = 0
 		else:
 			if level < 4:
@@ -52,8 +64,8 @@ func spawn_circle(_position=null, _type=null):
 				c.num_orbits = randi() % 3 + 2
 			elif level < 12:
 				c.num_orbits = randi() % 3 + 1
-			c.rot_speed = rand_range(PI, 1.5 * PI)
 			c.mode = 1
+	c.rot_speed = rand_range(PI, 1.2 * PI) * (1 + level/10.0)
 	c.connect('explode', self, '_on_Circle_explode')
 	c.connect('capture', self, '_on_Circle_capture')
 
@@ -74,4 +86,15 @@ func _on_Circle_explode():
 func _on_Player_dead():
 	for node in $Circles.get_children():
 		node.explode()
-	$Display.game_over()
+	if score > highscore:
+		highscore = score
+		save_score()
+	$Display.game_over(score, highscore)
+	$Music.stop()
+
+
+func save_score():
+	var f = File.new()
+	f.open(score_file, File.WRITE)
+	f.store_string(str(highscore))
+	f.close()

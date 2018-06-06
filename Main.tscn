@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Display.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sounds/Music_Light-Puzzles.ogg" type="AudioStream" id=3]
 
 [node name="Main" type="Node"]
 
@@ -14,7 +15,7 @@ circles_per_level = 8
 
 [node name="Camera2D" type="Camera2D" parent="." index="2"]
 
-position = Vector2( 144.959, 734.67 )
+position = Vector2( 229.018, 539.436 )
 offset = Vector2( 0, -200 )
 anchor_mode = 1
 rotating = false
@@ -44,6 +45,14 @@ _sections_unfolded = [ "Smoothing" ]
 
 position = Vector2( 230, 540 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="Music" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 3 )
+volume_db = -10.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="show_message" from="." to="Display" method="show_message"]
 
