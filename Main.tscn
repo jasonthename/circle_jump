@@ -4,16 +4,37 @@
 [ext_resource path="res://Display.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/sounds/Music_Light-Puzzles.ogg" type="AudioStream" id=3]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = ExtResource( 1 )
-circles_per_level = 8
 
-[node name="Display" parent="." index="0" instance=ExtResource( 2 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="0"]
 
-[node name="Circles" type="Node" parent="." index="1"]
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="Camera2D" type="Camera2D" parent="." index="2"]
+[node name="Background" type="ColorRect" parent="CanvasLayer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.278778, 0.660895, 0.679688, 1 )
+
+[node name="Display" parent="." index="1" instance=ExtResource( 2 )]
+
+[node name="Circles" type="Node" parent="." index="2"]
+
+[node name="Camera2D" type="Camera2D" parent="." index="3"]
 
 position = Vector2( 229.018, 539.436 )
 offset = Vector2( 0, -200 )
@@ -32,21 +53,21 @@ smoothing_enabled = true
 smoothing_speed = 10.0
 offset_v = 0.0
 offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-_sections_unfolded = [ "Smoothing" ]
+_sections_unfolded = [ "Drag Margin", "Smoothing" ]
 
-[node name="StartPosition" type="Position2D" parent="." index="3"]
+[node name="StartPosition" type="Position2D" parent="." index="4"]
 
 position = Vector2( 230, 540 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Music" type="AudioStreamPlayer" parent="." index="4"]
+[node name="Music" type="AudioStreamPlayer" parent="." index="5"]
 
 stream = ExtResource( 3 )
 volume_db = -10.0

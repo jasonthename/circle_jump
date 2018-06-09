@@ -9,12 +9,12 @@ func _ready():
 	change_screen($TitleScreen)
 
 func change_screen(new_screen):
+	printt('changing to', new_screen.name)
 	for node in get_tree().get_nodes_in_group('buttons'):
 		node.disabled = true
 	if current_screen:
 		if current_screen.get_node('AnimationPlayer').is_playing():
 			return
-
 		current_screen.disappear()
 		yield(current_screen.get_node('AnimationPlayer'), "animation_finished")
 	current_screen = new_screen
@@ -25,7 +25,6 @@ func change_screen(new_screen):
 
 func _on_PlayButton_pressed():
 	change_screen($PlayScreen)
-	print("starting")
 	emit_signal('start_game')
 
 func _on_SettingsButton_pressed():
@@ -39,8 +38,8 @@ func _on_ReturnButton_pressed():
 		$TransitionSound.play()
 	change_screen($TitleScreen)
 
-func game_over(score, highscore):
-	$EndScreen.update_scores(score, highscore)
+func game_over(score):
+	$EndScreen.update_scores(score, settings.highscore)
 	change_screen($EndScreen)
 
 func _on_HomeButton_pressed():
