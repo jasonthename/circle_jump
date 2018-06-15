@@ -7,10 +7,7 @@ path="res://.import/Music_Light-Puzzles.ogg-7c85284b2ce7ea1f4f54d98ef5e4a3cd.ogg
 [deps]
 
 source_file="res://assets/sounds/Music_Light-Puzzles.ogg"
-source_md5="7d6e1aa9fb3e1e0d4015483259c32d26"
-
 dest_files=[ "res://.import/Music_Light-Puzzles.ogg-7c85284b2ce7ea1f4f54d98ef5e4a3cd.oggstr" ]
-dest_md5="db2dfd30a5877243a205b44db9c240f9"
 
 [params]
 

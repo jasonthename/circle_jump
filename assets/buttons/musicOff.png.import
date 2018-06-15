@@ -7,10 +7,7 @@ path="res://.import/musicOff.png-3335149063e9765f2b042d54e7fef016.stex"
 [deps]
 
 source_file="res://assets/buttons/musicOff.png"
-source_md5="bedff21c9a444a72128c9a307aace52a"
-
 dest_files=[ "res://.import/musicOff.png-3335149063e9765f2b042d54e7fef016.stex" ]
-dest_md5="884ccd6a1de34c8523135b0aac05fc8e"
 
 [params]
 

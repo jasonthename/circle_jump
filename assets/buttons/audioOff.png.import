@@ -7,10 +7,7 @@ path="res://.import/audioOff.png-7d6babd5ed775fb4cd854e612d49d15e.stex"
 [deps]
 
 source_file="res://assets/buttons/audioOff.png"
-source_md5="1737d16ca1b0f1b704990255175035d1"
-
 dest_files=[ "res://.import/audioOff.png-7d6babd5ed775fb4cd854e612d49d15e.stex" ]
-dest_md5="555d34ff46f5f57bcd30ceb439f15a6a"
 
 [params]
 

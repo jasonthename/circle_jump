@@ -7,10 +7,7 @@ path="res://.import/audioOn.png-23832d001a6ffbf7f9a59134b86c0c32.stex"
 [deps]
 
 source_file="res://assets/buttons/audioOn.png"
-source_md5="8d8dfba47a06bc6ed6d23842a1bde242"
-
 dest_files=[ "res://.import/audioOn.png-23832d001a6ffbf7f9a59134b86c0c32.stex" ]
-dest_md5="a113487a3d7fb3a713b3774257c50ab5"
 
 [params]
 

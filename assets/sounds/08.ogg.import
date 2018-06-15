@@ -7,10 +7,7 @@ path="res://.import/08.ogg-32f6bf1c294c98727b147321f84d36ef.oggstr"
 [deps]
 
 source_file="res://assets/sounds/08.ogg"
-source_md5="59bd4da85c1e787abf34084fe7e0c5fc"
-
 dest_files=[ "res://.import/08.ogg-32f6bf1c294c98727b147321f84d36ef.oggstr" ]
-dest_md5="c5012de5ddd59df551313cd23ada8134"
 
 [params]
 

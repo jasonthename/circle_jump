@@ -7,10 +7,7 @@ path="res://.import/icon_sheet_white2x.png-34b51a79b42530c985ec07baae338239.stex
 [deps]
 
 source_file="res://assets/icon_sheet_white2x.png"
-source_md5="8ea53104991b18ccce734a004b737dae"
-
 dest_files=[ "res://.import/icon_sheet_white2x.png-34b51a79b42530c985ec07baae338239.stex" ]
-dest_md5="6544e519ce678c7830b0df43d16a6ef9"
 
 [params]
 

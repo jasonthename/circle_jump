@@ -7,10 +7,7 @@ path="res://.import/circle_3bar.png-777b3ef6f1fb44d676fafddae1151558.stex"
 [deps]
 
 source_file="res://assets/circle_3bar.png"
-source_md5="9dd7638e9d6c867e4f19f101f32b24c2"
-
 dest_files=[ "res://.import/circle_3bar.png-777b3ef6f1fb44d676fafddae1151558.stex" ]
-dest_md5="c86d8811b9dc8a602309a3b22c16ec61"
 
 [params]
 

@@ -7,51 +7,54 @@
 [ext_resource path="res://SettingsScreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sounds/menu_click.wav" type="AudioStream" id=6]
 
-[node name="Display" type="Node"]
+[node name="Display" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
 [node name="TitleScreen" parent="." index="0" instance=ExtResource( 2 )]
 
-offset = Vector2( 500, 0 )
-transform = Transform2D( 1, 0, 0, 1, 500, 0 )
+editor/display_folded = true
+
+[node name="AnimationPlayer" parent="TitleScreen" index="1"]
+
+autoplay = ""
 
 [node name="EndScreen" parent="." index="1" instance=ExtResource( 3 )]
 
-offset = Vector2( 500, 0 )
-transform = Transform2D( 1, 0, 0, 1, 500, 0 )
+editor/display_folded = true
+
+[node name="AnimationPlayer" parent="EndScreen" index="1"]
+
+autoplay = ""
 
 [node name="PlayScreen" parent="." index="2" instance=ExtResource( 4 )]
 
-offset = Vector2( 500, 0 )
-transform = Transform2D( 1, 0, 0, 1, 500, 0 )
-
 [node name="SettingsScreen" parent="." index="3" instance=ExtResource( 5 )]
 
-offset = Vector2( 500, 0 )
-transform = Transform2D( 1, 0, 0, 1, 500, 0 )
+editor/display_folded = true
+
+[node name="AnimationPlayer" parent="SettingsScreen" index="1"]
+
+autoplay = ""
 
 [node name="TransitionSound" type="AudioStreamPlayer" parent="." index="4"]
 
 stream = ExtResource( 6 )
 volume_db = 0.0
+pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
-[connection signal="pressed" from="TitleScreen/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="play" from="TitleScreen" to="." method="_on_TitleScreen_play"]
 
-[connection signal="pressed" from="TitleScreen/HBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="settings" from="TitleScreen" to="." method="_on_TitleScreen_settings"]
 
-[connection signal="pressed" from="EndScreen/HBoxContainer/HomeButton" to="." method="_on_HomeButton_pressed"]
+[connection signal="home" from="EndScreen" to="." method="_on_EndScreen_home"]
 
-[connection signal="pressed" from="EndScreen/HBoxContainer/ReplayButton" to="." method="_on_ReplayButton_pressed"]
+[connection signal="replay" from="EndScreen" to="." method="_on_EndScreen_replay"]
 
-[connection signal="pressed" from="SettingsScreen/ReturnButton" to="." method="_on_ReturnButton_pressed"]
-
-[connection signal="pressed" from="SettingsScreen/HBoxContainer/SoundButton" to="." method="_on_SoundButton_pressed"]
-
-[connection signal="pressed" from="SettingsScreen/HBoxContainer/MusicButton" to="." method="_on_MusicButton_pressed"]
+[connection signal="return_to_title" from="SettingsScreen" to="." method="_on_SettingsScreen_return_to_title"]
 
 
 [editable path="TitleScreen"]

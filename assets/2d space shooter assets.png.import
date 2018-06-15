@@ -7,10 +7,7 @@ path="res://.import/2d space shooter assets.png-83b2e90c90d454b61c5f11c747ef65b7
 [deps]
 
 source_file="res://assets/2d space shooter assets.png"
-source_md5="40e217a3aaf20e2a4f38bd638b2ba8c0"
-
 dest_files=[ "res://.import/2d space shooter assets.png-83b2e90c90d454b61c5f11c747ef65b7.stex" ]
-dest_md5="aa43621f4542563e196fc4b4d198d704"
 
 [params]
 

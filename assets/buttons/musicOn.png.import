@@ -7,10 +7,7 @@ path="res://.import/musicOn.png-8bf596ecae11ff7aca46652f236ca64a.stex"
 [deps]
 
 source_file="res://assets/buttons/musicOn.png"
-source_md5="890879f10562e61a8013cdf1f511f61f"
-
 dest_files=[ "res://.import/musicOn.png-8bf596ecae11ff7aca46652f236ca64a.stex" ]
-dest_md5="da60fe78c18351328e0bbe29b6c888bb"
 
 [params]
 
